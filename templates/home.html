@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Brave Rats</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <style>
+
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <ul>
+      <li class="home"><a href="/">BraveRats</a></li>
+      {% if user %}
+        <li><a href="/account">Welcome {{user}}</a></li>
+        <li><a href="/signout">Sign out</a></li>
+      {% else %}
+      <li class="right-nav" ><a href="/login">Log in</a></li>
+      <li class="right-nav"><a href="/signup">Sign up</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  
+  <div class="container">
+    
+    <button id="rules">Rules</button>
+    <form action="/oneplayer" method="post">
+      <button id="play">Play With Computer</button>
+    </form>
+    <form action="/leaderboard">
+      <button>Leaderboard</button>
+    </form>
+    <form action="/" method="post">
+      <button id="playWithAFriend">Play With A Friend</button>
+    </form>
+    {% if gameId %}
+    
+
+    <div class="modal fade" id="gameLinkModal" tabindex="-1" role="dialog" aria-labelledby="gameLinkModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gameLinkModalLabel">Game Link</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Copy and share this link with your friend:</p>
+              <a hidden="true" id="game_link" href="">/play/{{gameId}}</a>
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="copy_link_btn" data-toggle="tooltip">Copy</button>
+                <p id="copynotif" hidden="true">Link Copied!</p>
+              </div>
+          </div>
+          <div class="modal-footer">
+          </div>         
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+  </div>
+</body>
+
+</html>
